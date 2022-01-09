@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <title>Unit Converter</title>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+
+    function MinutesToMi() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+      return (
+        <div>
+          <div>
+            <label htmlFor="minutes">Minutes : </label>
+            <input 
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes" 
+              type="number"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="Hour">Hour : </label>
+            <input 
+              value={inverted ? amount : Math.round(amount / 60)} 
+              id="Hour" 
+              placeholder="Hour" 
+              type="number"
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <br/>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
+        </div>
+      );
+    }
+
+    function KmToMiles() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+      return (
+        <div>
+          <div>
+            <label htmlFor="Mi">Mi : </label>
+            <input 
+              value={inverted ? amount / 1.609344 : amount}
+              id="Mi"
+              placeholder="Mi" 
+              type="number"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="Km">Km : </label>
+            <input 
+              value={inverted ? amount : amount * 1.609344} 
+              id="Km" 
+              placeholder="Km" 
+              type="number"
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <br/>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
+        </div>
+      );
+      
+    }
+
+    //root div 그려주는 함수
+    function App() {
+      const [index, setIndex] = React.useState('0')
+      const onSelect = (e) => {
+        setIndex(e.target.value);
+      };
+      return (
+        <div>
+          <h1>Unit Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="0">Minutes & Hour </option>
+            <option value="1">Km & Miles </option>
+          </select>
+          <hr />
+          {index === '0' ? <MinutesToMi /> : null}
+          {index === '1' ? <KmToMiles /> : null}
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+
+
+    /*JSX
+    function Title() {
+      return (
+      <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+        Hello I'm title
+      </h3>
+     );
+
+    /*
+    const h3 = React.createElement(
+      "h3", 
+      {
+        onMouseEnter: () => console.log('mouse enter')
+      }, 
+      "Hello I'm span"
+    );
+    */
+      
+    /*JSX
+    const Button = () => (
+      <button 
+        style={{
+          backgroundColor: "tomato",
+        }} 
+        onClick={() => console.log("i'm clicked")}
+      >
+        Click me
+      </button>
+    );
+      /*
+      const btn = React.createElement(
+        "button", 
+        {
+          onClick: () => console.log("I'm clicked"),
+          style: {
+            backgroundColor: "tomato"
+          }
+        }, 
+        "Click me"
+      );
+      
+    const container = React.createElement("div", null, [Title, Button]);
+    ReactDOM.render(container, root);
+    
+
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
+    ReactDOM.render(<Container />, root);
+    */
+  </script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Array1 </title>
+	<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+	<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+	<div id="root"></div> <!--div#root-->
+
+	<script type="text/babel">
+    class App extends React.Component {
+      render() {
+        const list = [
+          <li>사과</li>,
+          <li>배</li>,
+          <li>바나나</li>,
+        ]
+        return <ul>{list}</ul>
+      }
+    }
+    
+    const container = document.getElementById('root')
+    ReactDOM.render(<App />, container)
+  </script> 
+</body>
+</html>
